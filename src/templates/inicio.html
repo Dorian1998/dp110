@@ -1,0 +1,102 @@
+<!-- la primera siempre -->
+{% extends "base.html" %} 
+{% load static %}
+{% load crispy_forms_tags %} 
+{% block head_title %}Bienvenidos | {{ block.super }}{% endblock %}
+<!-- Main component for a primary marketing message or call to action -->
+
+<style>
+    {% block style %}
+    body {
+        min-height: 300px !important;
+    }
+    .jumbotron {
+        background-color: #172548 !important;
+        color: white !important;
+    }
+    .fa-5x{
+        font-size: 6em;
+        color: green;
+    }
+    .navbar-default{
+        background-color: #172548 !important;
+        border-color: #337ab7 !important;
+    }
+    {% endblock %}
+</style>
+
+{% block jumbotron %}
+{% if request.user.is_staff %}
+<br>
+<br>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+            <form method="POST" action="">{% csrf_token %} {{ el_form2 | crispy }}
+                <input class="btn btn-primary" type="submit" value="Buscar">
+            </form>
+
+<br><br>
+<table class="table">
+    <tr><td><h3> # </h3></td><td><h3>Correo</h3></td><td><h3>Nombre</h3></td><td><h3>Creacion</h3></td></tr>
+    {% for instance in queryset %}
+    <tr><td>{{ forloop.counter }}</td><td>{{ instance }}</td><td>{{ instance.nombre }}</td><td>Hace {{ instance.timestamp|timesince }}</td></tr>
+    {% endfor %}
+</table>
+</div>
+</div>
+{% else %}
+<div class="jumbotron">
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Probar Django 1.10</h1>
+            <p>Un proyectopara principiantes. El objetivo es construir una pagina web simple alapar que elegante en muy poco
+                tiempo</p>
+            <p>
+                <a class="btn btn-lg btn-primary" href="/accounts/register" role="button">Unete &raquo;</a>
+            </p>
+        </div>
+        <div class="col-sm-6">
+                <iframe width="600" height="360" src="https://www.youtube.com/embed/ChSvnSv_3aw?list=PLUAh0xzkWmoudbGvyUzTTUcPhOPgqVhhd" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+    </div>
+</div>
+{% endif %}
+{% endblock%} {{ titulo }}<br> {{ request.user}}
+<hr>
+<br>
+ {% block content %}
+ {% if not request.user.is_staff %}
+<div class="container">
+<div class="row">
+    <div class="col-sm-3 pull-right">
+        {% if not request.user.is_authenticated %}
+        <p class="lead text-align-center">Subscribete</p>
+        <form method="POST" action>{% csrf_token %} {{ el_form|crispy }}
+            <input class="btn btn-primary" type="submit" value="Enviar">
+        </form>
+        {% else %}
+        <p class="lead text-align-center">{{ titulo }}<br><br><br><i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i></p>
+        {% endif %}
+    </div>
+    <div class="col-sm-3 col-xs-12">
+        <p class="lead text-align-center">Creando con Django &amp; Bootstrap <br></br><i class="fa fa-space-shuttle fa-5x" aria-hidden="true"></i></p>
+    </div>
+    <div class="col-sm-3">
+        <p class="lead text-align-center">Y con mucho amor, Claro.</p>
+        <img src="{% static 'img/obama_tacos.jpg' %}" width="400" height="200px"  class="img-responsive"/>
+    </div>
+    <div class="col-sm-3">
+        <p class="lead text-align-center">Codigo abierto, Siempre <br><br>
+            <span class="fa-stack fa-lg fa-4x">
+                <i class="fa fa-empire fa-stack-1x" style="color:darkgoldenrod" aria-hidden="true"></i>
+                <i class="fa fa-spinner fa-spin fa-stack-2x" style="color:maroon" aria-hidden="true"></i>
+            </span>
+        </p>
+    </div>
+</div>
+</div>
+<hr> 
+{% endif %}
+{% endblock %}

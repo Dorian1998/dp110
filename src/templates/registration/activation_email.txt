@@ -1,0 +1,11 @@
+{% load i18n %}
+{% trans "Activate account at" %} {{ site.name }}:
+
+Hola,
+Haz click en el msm para activar tu cuenta 
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+{% blocktrans %}Link is valid for {{ expiration_days }} days.{% endblocktrans %}
+
+-Team CFE

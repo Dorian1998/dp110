@@ -1,0 +1,42 @@
+<!DOCTYPE html> {% load static %}
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>{% block head_title %}PD 110{% endblock %} </title>
+<style >
+  {% block style %}{% endblock %}
+</style>
+
+
+{% include "head_css.html" %}
+</head>
+
+<body>
+
+  <!-- Static navbar -->
+  {% include "navbar.html" %}
+
+
+  
+{% block jumbotron %}
+
+{% endblock%}
+{% block content %}
+{% endblock %}
+
+
+  
+  <!-- /container -->
+  {% include "javascript.html" %}
+</body>
+
+</html>
